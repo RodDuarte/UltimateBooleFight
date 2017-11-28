@@ -3,8 +3,44 @@ package org.academiadecodigo.bootcamp;
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 
-
 public class Position {
+
+    private int col;
+    private int row;
+
+    public Position(int col, int row){
+        this.col = col;
+        this.row = row;
+    }
+
+    public void genPosition(int width, int height) {
+        this.col = (int) (Math.random() * width);
+        this.row = (int) (Math.random() * height);
+    }
+
+    public void moveUp() {
+        //  if (row > 0) {
+        this.row --;
+        //}
+    }
+
+    public void moveDown() {
+        // if (row < TestField.widht - 1) {
+        this.row++;
+        //}
+    }
+
+    public int getCol() {
+        return col;
+    }
+
+    public int getRow() {
+        return row;
+    }
+}
+
+
+/*public class Position {
 
     private int col;
     private int row;
@@ -33,44 +69,6 @@ public class Position {
         return row;
     }
 
-    //KEYBOARD EVENT!!
-
-    /*public void moveInDirection(Keyboard direction) {
-
-        switch (direction) {
-
-            case UP:
-                moveUp();
-                break;
-            case DOWN:
-                moveDown();
-                break;
-        }
-
-    }
 
 
-
-    public boolean equals(Position pos) {
-        return this.col == pos.getCol() && this.row == pos.getRow() ? true : false;
-    }
-
-    public void moveUp() {
-        rectangle.translate((getCol())*Field.CELLPIXELS,(getRow()-1)*Field.CELLPIXELS);
-    }
-
-    public void moveDown() {
-        rectangle.translate((getCol())*Field.CELLPIXELS,(getRow()+1)*Field.CELLPIXELS);
-    }
-
-    public void show() {
-        rectangle.fill();
-    }
-
-    public void hide() {
-
-        rectangle.delete();
-    }
-*/
-
-}
+}*/
