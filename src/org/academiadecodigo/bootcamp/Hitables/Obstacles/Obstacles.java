@@ -1,8 +1,8 @@
 package org.academiadecodigo.bootcamp.Hitables.Obstacles;
 
 public enum  Obstacles {
-    ROCK (10),
-    TRUCK (10),
+    ROCK (20),
+    TRUCK (30),
     GARBAGECAN(10);
 
     private int lostHealth;

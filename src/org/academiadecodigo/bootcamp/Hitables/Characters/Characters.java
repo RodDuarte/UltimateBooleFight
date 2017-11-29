@@ -2,10 +2,10 @@ package org.academiadecodigo.bootcamp.Hitables.Characters;
 
 public enum Characters {
 
-    COP (10),
-    SELLER (10),
+    COP (20),
+    SELLER (5),
     FIGHTER(10),
-    TOURIST(10);
+    TOURIST(15);
 
     private int points;
 

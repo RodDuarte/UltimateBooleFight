@@ -1,8 +1,5 @@
 package org.academiadecodigo.bootcamp;
 
-import org.academiadecodigo.simplegraphics.graphics.Color;
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
-
 public class Position {
 
     private int col;
@@ -13,21 +10,22 @@ public class Position {
         this.row = row;
     }
 
-    public void genPosition(int width, int height) {
-        this.col = (int) (Math.random() * width);
-        this.row = (int) (Math.random() * height);
-    }
-
     public void moveUp() {
-        //  if (row > 0) {
+        if (row <= 8 && row > 5) {
         this.row --;
-        //}
+        }
     }
 
     public void moveDown() {
-        // if (row < TestField.widht - 1) {
+        if (row >= 5 && row < 8) {
         this.row++;
-        //}
+        }
+    }
+
+    public void moveLeft() {
+        if (col <= 19 && col >= 0) {
+            this.col--;
+        }
     }
 
     public int getCol() {
@@ -37,19 +35,13 @@ public class Position {
     public int getRow() {
         return row;
     }
-}
 
-
-/*public class Position {
-
-    private int col;
-    private int row;
-    private Rectangle rectangle;
-
-
-    public Position(int col, int row) {
-        this.col = col;
+    public void setRow(int row) {
         this.row = row;
+    }
+
+    public void setCol(int col) {
+        this.col = col;
     }
 
     public Position getPosition() {
@@ -61,14 +53,12 @@ public class Position {
         this.row = row;
     }
 
-    public int getCol() {
-        return col;
+    @Override
+    public String toString() {
+        return "Position{" +
+                "col=" + col +
+                ", row=" + row +
+                '}';
     }
+}
 
-    public int getRow() {
-        return row;
-    }
-
-
-
-}*/

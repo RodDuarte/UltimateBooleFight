@@ -7,21 +7,24 @@ import org.academiadecodigo.bootcamp.Hitables.Obstacles.Rock;
 import org.academiadecodigo.bootcamp.Hitables.Obstacles.Truck;
 
 public class Factory {
+
     public Hitables characterFactory(){
+
+        int range = (8 - 5) + 1;
+        int random = (int)(Math.random() * range) + 5;
 
         switch (Characters.values()[Characters.random()]){
             case COP:
-                return new Cop(2,2);
-
+                return new Cop(19,random);
 
             case SELLER:
-                return new Seller(4,5);
+                return new Seller(19,random);
 
             case FIGHTER:
-                return new Fighter(4,5);
+                return new Fighter(19,random);
 
             case TOURIST:
-                return new Tourist(4, 5);
+                return new Tourist(19, random);
 
             default:
                 return null;
@@ -30,16 +33,19 @@ public class Factory {
 
     public Hitables obstacleFactory(){
 
+        int range = (8 - 5) + 1;
+        int random = (int)(Math.random() * range) + 5;
+
         switch (Obstacles.values()[Obstacles.random()]){
 
             case ROCK:
-                return new Rock(4,5);
+                return new Rock(19,random);
 
             case TRUCK:
-                return new Truck(4,5);
+                return new Truck(19,random);
 
             case GARBAGECAN:
-                return new GarbageCan(4,5);
+                return new GarbageCan(19,random);
 
             default:
                 return null;

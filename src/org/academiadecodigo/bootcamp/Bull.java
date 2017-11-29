@@ -19,35 +19,11 @@ public class Bull implements KeyboardHandler{
     private Rectangle bull;
 
     public Bull(){
-        Position bullPosition = new Position(3*10,2*10);
-        this.position = bullPosition;
-    }
-
-    public void createBull() throws InterruptedException{
-        bull = new Rectangle(position.getCol(), position.getRow(), 10, 10);
-        bull.draw();
+        position = new Position(0,6);
+        bull = new Rectangle(0, 6*Field.CELLPIXELS, Field.CELLPIXELS, Field.CELLPIXELS);
         bull.setColor(Color.BLACK);
         bull.fill();
-    }
 
-
-
-
-    public void move(Direction direction){
-        switch(direction){
-            case UP:
-                if(position.getRow() > 0) {
-                    position.moveUp();
-                }
-                break;
-
-            case DOWN:
-                if(position.getRow() < (Field.getHeight())-1) { //ver height!!
-                    position.moveDown();
-
-                }
-                break;
-        }
     }
 
     public int getCol(){
@@ -58,9 +34,9 @@ public class Bull implements KeyboardHandler{
         return position.getRow();
     }
 
-    //BULL KEYBOARDEVENTS
+    //BULL KEYBOARD EVENTS
 
-    public void keyBoardEvent() throws InterruptedException{
+    public void keyBoardEvent() /*throws InterruptedException*/{
 
         Keyboard keyboard = new Keyboard(this);
 
@@ -87,24 +63,18 @@ public class Bull implements KeyboardHandler{
         switch(keyboardEvent.getKey()){
 
             case KeyboardEvent.KEY_UP:
-                System.out.println("up");
-                this.position.moveUp();
-
-                if(position.getRow() > 0){
-                    bull.translate(0,-1);
+                if(position.getRow() > 5 && position.getRow() <= 8){
+                    this.position.moveUp();
+                    bull.translate(0,-Field.CELLPIXELS);
                 }
-                System.out.println("row: " + getRow());
 
                 break;
 
             case KeyboardEvent.KEY_DOWN:
-                System.out.println("down");
-                this.position.moveDown();
-
-                if(position.getRow() < 0){
-                    bull.translate(0,1);
+                if(position.getRow() >= 5 && position.getRow() < 8){
+                    this.position.moveDown();
+                    bull.translate(0,Field.CELLPIXELS);
                 }
-                System.out.println("row: " + getRow());
                 break;
         }
     }
@@ -115,21 +85,3 @@ public class Bull implements KeyboardHandler{
     }
 
 }
-
-/*
-public class Bull {
-
-    private Position pos;
-    private Rectangle rectangle;
-
-    public Bull(){
-
-        pos = new Position(0,6);
-        rectangle = new Rectangle(0, 6*Field.CELLPIXELS,Field.CELLPIXELS,Field.CELLPIXELS);
-        rectangle.setColor(Color.BLACK);
-        rectangle.fill();
-
-    }
-
-}
-*/
