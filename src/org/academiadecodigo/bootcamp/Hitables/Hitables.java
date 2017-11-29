@@ -5,4 +5,7 @@ import org.academiadecodigo.bootcamp.Position;
 public interface Hitables {
 
 
+
+
+
 }

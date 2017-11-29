@@ -84,4 +84,7 @@ public class Bull implements KeyboardHandler{
 
     }
 
+    public Position getPosition() {
+        return position;
+    }
 }

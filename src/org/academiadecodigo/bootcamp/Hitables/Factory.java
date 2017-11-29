@@ -1,5 +1,6 @@
 package org.academiadecodigo.bootcamp.Hitables;
 
+import org.academiadecodigo.bootcamp.Game.GameObjects;
 import org.academiadecodigo.bootcamp.Hitables.Characters.*;
 import org.academiadecodigo.bootcamp.Hitables.Obstacles.GarbageCan;
 import org.academiadecodigo.bootcamp.Hitables.Obstacles.Obstacles;
@@ -8,10 +9,10 @@ import org.academiadecodigo.bootcamp.Hitables.Obstacles.Truck;
 
 public class Factory {
 
-    public Hitables characterFactory(){
+    public GameObjects characterFactory(){
 
         int range = (8 - 5) + 1;
-        int random = (int)(Math.random() * range) + 5;
+        int random = (int)Math.floor((Math.random() * range) + 5);
 
         switch (Characters.values()[Characters.random()]){
             case COP:
@@ -31,10 +32,10 @@ public class Factory {
         }
     }
 
-    public Hitables obstacleFactory(){
+    public GameObjects obstacleFactory(){
 
         int range = (8 - 5) + 1;
-        int random = (int)(Math.random() * range) + 5;
+        int random = (int)Math.floor((Math.random() * range) + 5);
 
         switch (Obstacles.values()[Obstacles.random()]){
 
