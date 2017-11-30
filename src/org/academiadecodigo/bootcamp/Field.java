@@ -4,6 +4,8 @@ import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Line;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 
+import javax.swing.*;
+
 public class Field {
 
     private int cols;

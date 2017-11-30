@@ -23,13 +23,13 @@ public class Game {
     private GameOver gameOver;
     private GameObjects[] gameObjects;
     private Factory factory;
-    private double iterator = -2;
+    private double iterator = -1;
 
     public Game(){
 
         sky = new Field(20,5,false);
         road = new Field(20,4, true);
-        delay = 175;
+        delay = 100;
 
     }
 
@@ -54,16 +54,20 @@ public class Game {
             Thread.sleep(delay);
 
             for (int i = 0; i < gameObjects.length; i++) {
-                    gameObjects[i].setColor(Color.ORANGE);
-                    gameObjects[i].fill();
 
-                    gameObjects[i].moveForward();
-                    //LIMITAR ECRA À DIREITA!!
+                gameObjects[i].moveForward();
+                gameObjects[i].setColor(Color.ORANGE);
+                gameObjects[i].fill();
 
                     if(collisionDetector.check(gameObjects[i])){
                         gameObjects[i].delete();
+                        if(i > gameObjects.length/3 && i <= (2*gameObjects.length)/3){
+                            delay = 80;
+                        }
+                        if(i > (2*gameObjects.length)/3){
+                            delay = 60;
+                        }
                     }
-                    //DECREMENTAR DELAY
                     if (iterator <= i) {
                         iterator += 0.10;
                         break;
@@ -88,7 +92,7 @@ public class Game {
     public void createObjects(){
 
         factory = new Factory();
-        gameObjects = new GameObjects[10];
+        gameObjects = new GameObjects[30];
 
 
         for (int i=0; i < gameObjects.length; i++){
