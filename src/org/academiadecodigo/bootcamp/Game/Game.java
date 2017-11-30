@@ -56,13 +56,14 @@ public class Game {
             for (int i = 0; i < gameObjects.length; i++) {
                     gameObjects[i].setColor(Color.ORANGE);
                     gameObjects[i].fill();
+
                     gameObjects[i].moveForward();
+                    //LIMITAR ECRA À DIREITA!!
 
-                    /*if(collisionDetector.check(gameObjects[i])){
+                    if(collisionDetector.check(gameObjects[i])){
                         gameObjects[i].delete();
-                        System.out.println("Delete");
-                    }*/
-
+                    }
+                    //DECREMENTAR DELAY
                     if (iterator <= i) {
                         iterator += 0.10;
                         break;

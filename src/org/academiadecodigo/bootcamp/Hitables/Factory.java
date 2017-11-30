@@ -16,16 +16,16 @@ public class Factory {
 
         switch (Characters.values()[Characters.random()]){
             case COP:
-                return new Cop(19,random);
+                return new Cop(20,random);
 
             case SELLER:
-                return new Seller(19,random);
+                return new Seller(20,random);
 
             case FIGHTER:
-                return new Fighter(19,random);
+                return new Fighter(20,random);
 
             case TOURIST:
-                return new Tourist(19, random);
+                return new Tourist(20, random);
 
             default:
                 return null;
@@ -40,13 +40,13 @@ public class Factory {
         switch (Obstacles.values()[Obstacles.random()]){
 
             case ROCK:
-                return new Rock(19,random);
+                return new Rock(20,random);
 
             case TRUCK:
-                return new Truck(19,random);
+                return new Truck(20,random);
 
             case GARBAGECAN:
-                return new GarbageCan(19,random);
+                return new GarbageCan(20,random);
 
             default:
                 return null;

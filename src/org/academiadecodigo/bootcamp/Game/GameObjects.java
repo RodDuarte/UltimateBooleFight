@@ -20,8 +20,8 @@ public class GameObjects{
     }
 
     public void moveForward(){
-        if(getPosition().getCol() >= 0 && getPosition().getCol() <= 19) {
-            if (getPosition().getCol() == 0) {
+        if(getPosition().getCol() >= -1 && getPosition().getCol() <= 20) {
+            if (getPosition().getCol() == -1) {
                 object.delete();
             }
             getPosition().moveLeft();

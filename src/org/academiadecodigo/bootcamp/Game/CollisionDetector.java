@@ -13,7 +13,8 @@ public class CollisionDetector {
 
     public boolean check(GameObjects gameObject) {
 
-        if ((bull.getPosition()).equals(gameObject.getPosition())) {
+        if ((bull.getPosition().getCol()) == (gameObject.getPosition().getCol()) &&
+                (bull.getPosition().getRow()) == (gameObject.getPosition().getRow())) {
             return true;
         }
         return false;

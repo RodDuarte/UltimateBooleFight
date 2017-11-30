@@ -23,7 +23,7 @@ public class Position {
     }
 
     public void moveLeft() {
-        if (col <= 19 && col >= 0) {
+        if (col <= 20 && col >= -1) {
             this.col--;
         }
     }
