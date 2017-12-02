@@ -14,6 +14,7 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
+import org.academiadecodigo.bootcamp.Game.SoundEffects;
 
 public class Game implements KeyboardHandler {
 
@@ -35,6 +36,7 @@ public class Game implements KeyboardHandler {
     private Picture[] bullLife = new Picture[3];
     private Picture bull2;
     private int bullPicCounter;
+    private SoundEffects soundEffects;
 
     public Game() throws InterruptedException {
         sky = new Field(18,5,false);
@@ -46,6 +48,7 @@ public class Game implements KeyboardHandler {
         bullLife[0] = new Picture(1687, 10, "bullLife1.png");
         bullLife[1] = new Picture(1723, 10, "bullLife1.png");
         bullLife[2] = new Picture(1759, 10, "bullLife1.png");
+        soundEffects = new SoundEffects();
 
 
     }
@@ -67,6 +70,9 @@ public class Game implements KeyboardHandler {
             bull = new Bull();
             keyBoardEvent();
             collisionDetector = new CollisionDetector(bull);
+
+            soundEffects.tsInit();
+            soundEffects.playEntry();
 
             while (bull.isAlive() && deletedCounter < 1) {
 
@@ -119,14 +125,14 @@ public class Game implements KeyboardHandler {
                     }
                     if (collisionDetector.check(gameObjectsToHit[i])) {
                         if (gameObjectsToHit[i] instanceof Character) {
-
+                            soundEffects.playGritos();
                             Character character = (Character) gameObjectsToHit[i];
                             score += character.getCharacters().getPoints();
                             textScore.setText("Score: " + score.toString());
                             textScore.draw();
 
                         } else if (gameObjectsToHit[i] instanceof Obstacle) {
-
+                            soundEffects.playCrashSound();
                             bullLife[bull.getHealth() - 1].delete();
                             bull.setHealth(bull.getHealth() - 1);
 
