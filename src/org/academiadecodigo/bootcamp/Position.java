@@ -28,6 +28,8 @@ public class Position {
         }
     }
 
+    //public void moveToCages(){}
+
     public int getCol() {
         return col;
     }

@@ -24,7 +24,6 @@ public class Game implements KeyboardHandler {
     private int delay;
     private Integer score = 0;
     private Bull bull;
-   // private Menu menu;
     private GameOver gameOver;
     private GameObjects[] gameObjectsToHit;
     private GameObjects[] gameObjectsClouds;
@@ -38,7 +37,6 @@ public class Game implements KeyboardHandler {
     private int bullPicCounter;
 
     public Game() throws InterruptedException {
-        //menu = new Menu();
         sky = new Field(18,5,false);
         road = new Field(18,4, true);
         delay = 100;
@@ -61,12 +59,8 @@ public class Game implements KeyboardHandler {
             bullLife[1].draw();
             bullLife[2].draw();
 
-
             createObjects();
             start();
-
-
-
     }
 
     public void start() throws InterruptedException{
@@ -173,6 +167,11 @@ public class Game implements KeyboardHandler {
 
             }
 
+            //if(bull.isAlive()){
+              //  createCages();
+            //}
+
+
     }
 
     public void createCages(){
@@ -227,7 +226,7 @@ public class Game implements KeyboardHandler {
 
     }
 
-    public void keyBoardEvent() /*throws InterruptedException*/{
+    public void keyBoardEvent() throws InterruptedException{
 
         Keyboard keyboard = new Keyboard(this);
 
