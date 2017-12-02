@@ -4,18 +4,24 @@ import org.academiadecodigo.bootcamp.Menu.Menu;
 
 public class Main {
 
-    public static void main(String[] args) throws InterruptedException{
+    public static void main(String[] args) throws InterruptedException {
 
         Menu menu = new Menu();
-        menu.init();
 
-        Game g = new Game();
+            menu.init();
 
-        if (menu.isStartGame()){
-            g.init();
-            g.start();
 
+
+        while (!menu.isStartGame()){
+            System.out.println();
         }
+
+        menu.startGame();
+
+
+
+
+
 
     }
 

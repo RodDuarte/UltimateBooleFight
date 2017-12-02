@@ -1,6 +1,7 @@
 package org.academiadecodigo.bootcamp.Menu;
 
 import org.academiadecodigo.bootcamp.Field;
+import org.academiadecodigo.bootcamp.Game.Game;
 import org.academiadecodigo.bootcamp.Position;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
@@ -19,35 +20,47 @@ public class Menu implements KeyboardHandler {
     private Position selection;
     private Picture[] select = new Picture[4];
     private Field menu;
+    private Game game;
 
-
-    public Menu(){
-
+    public Menu() throws InterruptedException {
+        game = new Game();
         startGame = false;
         instructions = false;
         credits = false;
         exit = false;
+        selection = new Position(1,1);
+        menu = new Field(3,6);
+
 
     }
 
+
     public void init() throws InterruptedException {
-        selection = new Position(1,1);
-        menu = new Field(3,6);
-        options[0] = new Picture(6*Field.CELLPIXELS,1*Field.CELLPIXELS, "start.png");
-        options[1] = new Picture(6*Field.CELLPIXELS,3*Field.CELLPIXELS, "credits.png");
-        options[2] = new Picture(6*Field.CELLPIXELS,5*Field.CELLPIXELS, "credits.png");
-        options[3] = new Picture(6*Field.CELLPIXELS,7*Field.CELLPIXELS, "quit.png");
+
+        options[0] = new Picture(6.5 * Field.CELLPIXELS, 1.75 * Field.CELLPIXELS, "start.png");
+        options[1] = new Picture(6.5 * Field.CELLPIXELS, 3.25 * Field.CELLPIXELS, "credits.png");
+        options[2] = new Picture(6.5 * Field.CELLPIXELS, 4.75 * Field.CELLPIXELS, "credits.png");
+        options[3] = new Picture(6.5 * Field.CELLPIXELS, 6.25 * Field.CELLPIXELS, "quit.png");
         options[0].draw();
         options[1].draw();
         options[2].draw();
         options[3].draw();
-        System.out.println(selection.getRow());
 
-        select[0] = new Picture(6*Field.CELLPIXELS,1*Field.CELLPIXELS, "startSelected.png");
-        select[1] = new Picture(6*Field.CELLPIXELS,3*Field.CELLPIXELS, "creditsSelected.png");
-        select[2] = new Picture(6*Field.CELLPIXELS,5*Field.CELLPIXELS, "creditsSelected.png");
-        select[3] = new Picture(6*Field.CELLPIXELS,7*Field.CELLPIXELS, "quitSelected.png");
+        select[0] = new Picture(6.5*Field.CELLPIXELS,1.75*Field.CELLPIXELS, "startSelected.png");
+        select[1] = new Picture(6.5*Field.CELLPIXELS,3.25*Field.CELLPIXELS, "creditsSelected.png");
+        select[2] = new Picture(6.5*Field.CELLPIXELS,4.75*Field.CELLPIXELS, "creditsSelected.png");
+        select[3] = new Picture(6.5*Field.CELLPIXELS,6.25*Field.CELLPIXELS, "quitSelected.png");
+
+
         keyBoardEvent();
+        moveSelection();
+
+    }
+
+    public void startGame() throws InterruptedException {
+
+        game.init();
+
     }
 
 
@@ -67,25 +80,32 @@ public class Menu implements KeyboardHandler {
         return exit;
     }
 
-    public void moveSelection(){
+    public void moveSelection() {
+
+
 
         if(selection.getPosition().getRow()==1){
-            select[1].delete();
             select[0].draw();
+            select[1].delete();
+
         }
         if(selection.getPosition().getRow()==2){
             select[0].delete();
-            select[2].delete();
             select[1].draw();
+            select[2].delete();
+
+
         }
         if(selection.getPosition().getRow()==3){
             select[1].delete();
-            select[3].delete();
             select[2].draw();
+            select[3].delete();
+
         }
         if(selection.getPosition().getRow()==4){
             select[2].delete();
             select[3].draw();
+
         }
 
     }
@@ -123,35 +143,30 @@ public class Menu implements KeyboardHandler {
 
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {
-
         switch(keyboardEvent.getKey()){
-
             case KeyboardEvent.KEY_UP:
-                if(selection.getPosition().getRow() > 1 /*&& selection.getPosition().getRow() < 7*/){
-                    System.out.println("Move up "+ selection.getRow());
-                    this.selection.getPosition().setRow(selection.getRow()-1);
-
+                    if (selection.getPosition().getRow() > 1 && !isStartGame()) {
+                        this.selection.getPosition().setRow(selection.getRow() - 1);
                         moveSelection();
+                        System.out.println(selection.getRow());
 
-                }
-
+                    }
                 break;
 
             case KeyboardEvent.KEY_DOWN:
-                if(/*selection.getPosition().getRow() >  && */selection.getPosition().getRow() < 4){
-                    System.out.println("Move Down"+ selection.getRow());
-                    this.selection.getPosition().setRow(selection.getRow()+1);
+                    if (selection.getPosition().getRow() < 4 && !isStartGame()) {
+                        //counter++;
+                        this.selection.getPosition().setRow(selection.getRow() + 1);
+                        moveSelection();
 
-                    moveSelection();
-
-                }
-
+                    }
                 break;
 
             case KeyboardEvent.KEY_SPACE:
 
                 if(selection.getPosition().getRow() == 1){
                     startGame = true;
+
                 }
                 if(selection.getPosition().getRow() == 2){
                     instructions = true;
@@ -164,10 +179,14 @@ public class Menu implements KeyboardHandler {
                 }
                 break;
         }
+
+
+
     }
 
     @Override
     public void keyReleased(KeyboardEvent keyboardEvent) {
+
 
     }
 }
