@@ -1,15 +1,9 @@
 package org.academiadecodigo.bootcamp.Hitables.Obstacles;
 
 public enum  Obstacles {
-    ROCK (20),
-    TRUCK (30),
-    GARBAGECAN(10);
-
-    private int lostHealth;
-
-    Obstacles (int lostHealth){
-        this.lostHealth=lostHealth;
-    }
+    ROCK ,
+    BEER ,
+    GARBAGECAN;
 
     public static int random (){
 
@@ -17,7 +11,4 @@ public enum  Obstacles {
 
     }
 
-    public int getLostHealth() {
-        return lostHealth;
-    }
 }

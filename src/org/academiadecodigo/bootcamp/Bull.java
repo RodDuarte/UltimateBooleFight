@@ -3,30 +3,34 @@ package org.academiadecodigo.bootcamp;
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 
-import org.academiadecodigo.simplegraphics.graphics.Color;
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
-import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
-import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
-import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
-import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 
-public class Bull implements KeyboardHandler{
+public class Bull /*implements KeyboardHandler*/ {
 
-    Position position;
-    int health = 100;
-    boolean isAlive = true;
-    private Rectangle bull;
+    private Position position;
+    private Integer health = 3;
+    private boolean isAlive = true;
+    private Rectangle invisible;
+    private Picture[] bull = new Picture[5];
+    private int bullPicCounter = 0;
 
-    public Bull(){
-        position = new Position(0,6);
-        bull = new Rectangle(0, 6*Field.CELLPIXELS, Field.CELLPIXELS, Field.CELLPIXELS);
-        bull.setColor(Color.BLACK);
-        bull.fill();
 
+
+    public Bull() throws InterruptedException {
+        position = new Position(0, 6);
+        invisible = new Rectangle(0, (position.getRow())*Field.CELLPIXELS, Field.CELLPIXELS, Field.CELLPIXELS);
+        invisible.setColor(Color.DARK_GRAY);
+        invisible.fill();
+        bull[0] = new Picture(position.getCol(), position.getRow() * Field.CELLPIXELS, "bullMove1.png");
+        bull[1] = new Picture(position.getCol(), position.getRow() * Field.CELLPIXELS, "bullMove2.png");
+        bull[2] = new Picture(position.getCol(), position.getRow() * Field.CELLPIXELS, "bullMove3.png");
+        bull[3] = new Picture(position.getCol(), position.getRow() * Field.CELLPIXELS, "bullMove4.png");
+        bull[4] = new Picture(position.getCol(), position.getRow() * Field.CELLPIXELS, "bullMove5.png");
     }
 
-    public int getCol(){
+
+    public double getCol(){
         return position.getCol();
     }
 
@@ -34,57 +38,44 @@ public class Bull implements KeyboardHandler{
         return position.getRow();
     }
 
-    //BULL KEYBOARD EVENTS
-
-    public void keyBoardEvent() /*throws InterruptedException*/{
-
-        Keyboard keyboard = new Keyboard(this);
-
-
-        KeyboardEvent pressUp = new KeyboardEvent();
-        pressUp.setKey(KeyboardEvent.KEY_UP);
-        pressUp.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-
-        KeyboardEvent pressDown = new KeyboardEvent();
-        pressDown.setKey(KeyboardEvent.KEY_DOWN);
-        pressDown.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-
-
-        //Adding events
-        keyboard.addEventListener(pressUp);
-        keyboard.addEventListener(pressDown);
-
-    }//End keyBoardEvents();
-
-
-    @Override
-    public void keyPressed(KeyboardEvent keyboardEvent) {
-
-        switch(keyboardEvent.getKey()){
-
-            case KeyboardEvent.KEY_UP:
-                if(position.getRow() > 5 && position.getRow() <= 8){
-                    this.position.moveUp();
-                    bull.translate(0,-Field.CELLPIXELS);
-                }
-
-                break;
-
-            case KeyboardEvent.KEY_DOWN:
-                if(position.getRow() >= 5 && position.getRow() < 8){
-                    this.position.moveDown();
-                    bull.translate(0,Field.CELLPIXELS);
-                }
-                break;
-        }
-    }
-
-    @Override
-    public void keyReleased(KeyboardEvent keyboardEvent) {
-
-    }
 
     public Position getPosition() {
         return position;
     }
+
+
+    public Integer getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    public void setDeath() {
+        isAlive = false;
+    }
+
+    public Picture[] getBull() {
+        return bull;
+    }
+
+
+    public Picture getPic(Picture[] picArray){
+
+        bullPicCounter++;
+
+        if(bullPicCounter==5){
+
+            bullPicCounter=0;
+
+        }
+
+        return picArray[bullPicCounter];
+    }
+
 }

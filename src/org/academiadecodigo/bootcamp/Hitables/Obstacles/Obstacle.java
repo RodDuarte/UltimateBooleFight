@@ -1,11 +1,19 @@
 package org.academiadecodigo.bootcamp.Hitables.Obstacles;
 
 import org.academiadecodigo.bootcamp.Game.GameObjects;
-import org.academiadecodigo.bootcamp.Hitables.Hitables;
 
 public class Obstacle extends GameObjects {
 
-    public Obstacle (int col, int row){
-        super(col,row);
+    private Obstacles obstacles;
+
+    public Obstacle (int col, int row, Obstacles obstacles, String picture){
+
+        super(col,row, picture);
+        this.obstacles = obstacles;
+
+    }
+
+    public Obstacles getObstacles() {
+        return obstacles;
     }
 }

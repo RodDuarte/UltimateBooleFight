@@ -7,10 +7,14 @@ import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 
 public class Character extends GameObjects{
 
-    public Character(int col, int row){
-        super(col,row);
+    private Characters characters;
+
+    public Character(int col, int row, Characters characters, String picture){
+        super(col,row , picture);
+        this.characters = characters;
     }
 
-
-
+    public Characters getCharacters() {
+        return characters;
+    }
 }

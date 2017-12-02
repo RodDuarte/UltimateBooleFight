@@ -11,19 +11,19 @@ public class Position {
     }
 
     public void moveUp() {
-        if (row <= 8 && row > 5) {
+        if (row <= 6 && row > 3) {
         this.row --;
         }
     }
 
     public void moveDown() {
-        if (row >= 5 && row < 8) {
+        if (row >= 3 && row < 6) {
         this.row++;
         }
     }
 
     public void moveLeft() {
-        if (col <= 20 && col >= -1) {
+        if (col <= 20 && col >= -2) {
             this.col--;
         }
     }
