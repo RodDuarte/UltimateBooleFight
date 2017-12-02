@@ -44,9 +44,9 @@ public class Menu implements KeyboardHandler {
         System.out.println(selection.getRow());
 
         select[0] = new Picture(6*Field.CELLPIXELS,1*Field.CELLPIXELS, "startSelected.png");
-        select[1] = new Picture(6*Field.CELLPIXELS,2*Field.CELLPIXELS, "creditsSelected.png");
-        select[2] = new Picture(6*Field.CELLPIXELS,4*Field.CELLPIXELS, "creditsSelected.png");
-        select[3] = new Picture(6*Field.CELLPIXELS,6*Field.CELLPIXELS, "quitSelected.png");
+        select[1] = new Picture(6*Field.CELLPIXELS,3*Field.CELLPIXELS, "creditsSelected.png");
+        select[2] = new Picture(6*Field.CELLPIXELS,5*Field.CELLPIXELS, "creditsSelected.png");
+        select[3] = new Picture(6*Field.CELLPIXELS,7*Field.CELLPIXELS, "quitSelected.png");
         keyBoardEvent();
     }
 
@@ -111,8 +111,8 @@ public class Menu implements KeyboardHandler {
         pressDown.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
 
         KeyboardEvent pressEnter = new KeyboardEvent();
-        pressDown.setKey(KeyboardEvent.KEY_SPACE);
-        pressDown.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+        pressEnter.setKey(KeyboardEvent.KEY_SPACE);
+        pressEnter.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
 
         keyboard.addEventListener(pressUp);
         keyboard.addEventListener(pressDown);
@@ -127,9 +127,9 @@ public class Menu implements KeyboardHandler {
         switch(keyboardEvent.getKey()){
 
             case KeyboardEvent.KEY_UP:
-                if(selection.getPosition().getRow() >= 1 && selection.getPosition().getRow() < 4){
-                    System.out.println("Move up"+ selection.getRow());
-                    this.selection.getPosition().moveUp();
+                if(selection.getPosition().getRow() > 1 /*&& selection.getPosition().getRow() < 7*/){
+                    System.out.println("Move up "+ selection.getRow());
+                    this.selection.getPosition().setRow(selection.getRow()-1);
 
                         moveSelection();
 
@@ -138,9 +138,9 @@ public class Menu implements KeyboardHandler {
                 break;
 
             case KeyboardEvent.KEY_DOWN:
-                if(selection.getPosition().getRow() > 1 && selection.getPosition().getRow() <= 4){
-
-                    this.selection.getPosition().moveDown();
+                if(/*selection.getPosition().getRow() >  && */selection.getPosition().getRow() < 4){
+                    System.out.println("Move Down"+ selection.getRow());
+                    this.selection.getPosition().setRow(selection.getRow()+1);
 
                     moveSelection();
 
@@ -149,6 +149,7 @@ public class Menu implements KeyboardHandler {
                 break;
 
             case KeyboardEvent.KEY_SPACE:
+
                 if(selection.getPosition().getRow() == 1){
                     startGame = true;
                 }

@@ -6,16 +6,16 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException{
 
-        //Menu menu = new Menu();
-        //menu.init();
+        Menu menu = new Menu();
+        menu.init();
 
         Game g = new Game();
 
-        //if (menu.isStartGame()){
+        if (menu.isStartGame()){
             g.init();
             g.start();
 
-        //}
+        }
 
     }
 
