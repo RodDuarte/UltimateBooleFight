@@ -186,23 +186,23 @@ public class Game implements KeyboardHandler {
     }
 
     public void goingToCages() throws InterruptedException{
+        if (bullLiveStatus()) {
+            road.init();
+            sky.initBackground();
 
-        road.init();
-        sky.initBackground();
+            bull = new Bull();
 
-        bull = new Bull();
+            keyBoardEvent();
+            CollisionDetector collisionDetector = new CollisionDetector(bull);
+            createCages();
 
-        keyBoardEvent();
-        CollisionDetector collisionDetector = new CollisionDetector(bull);
-        createCages();
-
-            while(cages.getPos().getCol()>1) {
+            while (cages.getPos().getCol() > 1) {
                 bull2 = getPic(bull.getBull());
                 bull2.draw();
 
                 cages.moveCages();
 
-                if (collisionDetector.check(cages)){
+                if (collisionDetector.check(cages)) {
                     cages.deleteCages();
                     bull2.delete();
                     return;
@@ -212,6 +212,7 @@ public class Game implements KeyboardHandler {
                 bull2.delete();
 
             }
+        }
 
     }
 
