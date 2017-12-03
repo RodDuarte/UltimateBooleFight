@@ -17,10 +17,10 @@ public class Factory {
                 return new Character(18,random, Characters.COP, "police.png");
 
             case SELLER:
-                return new Character(18,random, Characters.SELLER, "sellerMan.png");
+                return new Character(17,random, Characters.SELLER, "sellerMan.png");
 
             case FIGHTER:
-                return new Character(18,random, Characters.FIGHTER, "tourist.png");
+                return new Character(18,random, Characters.FIGHTER, "fighter.png");
 
             case TOURIST:
                 return new Character(18, random, Characters.TOURIST, "tourist.png");

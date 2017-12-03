@@ -18,7 +18,7 @@ public class SoundEffects{
     }
 
 
-    public void playGritos(){
+    public void playCoinSound(){
         coinsSound.play();
     }
 

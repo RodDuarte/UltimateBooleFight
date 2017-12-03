@@ -6,6 +6,7 @@ import org.academiadecodigo.bootcamp.Hitables.Characters.Character;
 import org.academiadecodigo.bootcamp.Hitables.Factory;
 import org.academiadecodigo.bootcamp.Hitables.Obstacles.Obstacle;
 import org.academiadecodigo.bootcamp.Menu.GameOver;
+import org.academiadecodigo.bootcamp.kuusisto.tinysound.TinySound;
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Text;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
@@ -20,18 +21,14 @@ public class Game implements KeyboardHandler {
     private Field road;
     private Field sky;
     private Cages[] cages;
-    private CollisionDetector collisionDetector;
     private int delay;
     private Integer score = 0;
-    private Bull bull;
-    private GameOver gameOver;
     private GameObjects[] gameObjectsToHit;
     private GameObjects[] gameObjectsClouds;
     private GameObjects[] gameObjectsHouses;
-    private Factory factory;
+    private Bull bull;
     private double iterator = -1;
     private Text textScore;
-    private int deletedCounter;
     private Picture[] bullLife = new Picture[3];
     private Picture bull2;
     private int bullPicCounter;
@@ -53,110 +50,125 @@ public class Game implements KeyboardHandler {
     }
 
     public void init() throws InterruptedException {
-
+            soundEffects.tsInit();
             road.init();
             sky.initBackground();
             textScore.draw();
             bullLife[0].draw();
             bullLife[1].draw();
             bullLife[2].draw();
-
             createObjects();
             start();
     }
 
     public void start() throws InterruptedException{
+            int deletedCounter = 0;
             bull = new Bull();
             keyBoardEvent();
-            collisionDetector = new CollisionDetector(bull);
-
-            soundEffects.tsInit();
+            CollisionDetector collisionDetector = new CollisionDetector(bull);
             soundEffects.playEntry();
+
 
             while (bull.isAlive() && deletedCounter < 1) {
 
                 bull2 = getPic(bull.getBull());
                 bull2.draw();
 
-
-
                 for (int i = 0; i < gameObjectsToHit.length; i++) {
 
-                    gameObjectsToHit[i].moveForward();
-                    gameObjectsToHit[i].draw();
-                    gameObjectsClouds[i].moveForward();
-                    gameObjectsClouds[i].moveForward();
-                    gameObjectsClouds[i].draw();
-                    gameObjectsClouds[i + 50].moveForward();
-                    gameObjectsClouds[i + 50].draw();
-                    gameObjectsHouses[i].moveForward();
-                    gameObjectsHouses[i].draw();
+                    if(!gameObjectsToHit[i].isDeleted()) {
+                        gameObjectsToHit[i].moveForward();
+                        gameObjectsToHit[i].draw();
+                    }
+                        gameObjectsClouds[i].moveForward();
+                        gameObjectsClouds[i].moveForward();
+                        gameObjectsClouds[i].draw();
+                        gameObjectsClouds[i + 50].moveForward();
+                        gameObjectsClouds[i + 50].draw();
+                    if (!gameObjectsHouses[i].isDeleted()) {
+                        gameObjectsHouses[i].moveForward();
+                        gameObjectsHouses[i].draw();
+                    }
 
-                    if (gameObjectsToHit[i] instanceof Character) {
-                        Character fighter = (Character) gameObjectsToHit[i];
-                        if (fighter.getCharacters().getPoints() == 50 && fighter.getPosition().getCol() == 1) {
-                            if (fighter.getPosition().getRow() == 3) {
-                                gameObjectsToHit[i].getPosition().moveDown();
-                                gameObjectsToHit[i].dodgeDown();
-                            } else if (fighter.getPosition().getRow() == 6) {
-                                gameObjectsToHit[i].getPosition().moveUp();
-                                gameObjectsToHit[i].dodgeUp();
-                            } else {
-                                int randomMove = (int) Math.floor(Math.random() * 2);
-                                switch (randomMove) {
+                        if (gameObjectsToHit[i] instanceof Character) {
+                            Character fighter = (Character) gameObjectsToHit[i];
+                            if (fighter.getCharacters().getPoints() == 50 && fighter.getPosition().getCol() == 1) {
+                                if (fighter.getPosition().getRow() == 3) {
+                                    gameObjectsToHit[i].getPosition().moveDown();
+                                    gameObjectsToHit[i].dodgeDown();
+                                } else if (fighter.getPosition().getRow() == 6) {
+                                    gameObjectsToHit[i].getPosition().moveUp();
+                                    gameObjectsToHit[i].dodgeUp();
+                                } else {
+                                    int randomMove = (int) Math.floor(Math.random() * 2);
+                                    switch (randomMove) {
 
-                                    case 0:
-                                        gameObjectsToHit[i].getPosition().moveUp();
-                                        gameObjectsToHit[i].dodgeUp();
-                                        break;
-                                    case 1:
-                                        gameObjectsToHit[i].getPosition().moveDown();
-                                        gameObjectsToHit[i].dodgeDown();
-                                        break;
-                                    default:
-                                        break;
+                                        case 0:
+                                            gameObjectsToHit[i].getPosition().moveUp();
+                                            gameObjectsToHit[i].dodgeUp();
+                                            break;
+                                        case 1:
+                                            gameObjectsToHit[i].getPosition().moveDown();
+                                            gameObjectsToHit[i].dodgeDown();
+                                            break;
+                                        default:
+                                            break;
 
+                                    }
                                 }
                             }
-                        }
-
-                    }
-                    if (collisionDetector.check(gameObjectsToHit[i])) {
-                        if (gameObjectsToHit[i] instanceof Character) {
-                            soundEffects.playGritos();
-                            Character character = (Character) gameObjectsToHit[i];
-                            score += character.getCharacters().getPoints();
-                            textScore.setText("Score: " + score.toString());
-                            textScore.draw();
-
-                        } else if (gameObjectsToHit[i] instanceof Obstacle) {
-                            soundEffects.playCrashSound();
-                            bullLife[bull.getHealth() - 1].delete();
-                            bull.setHealth(bull.getHealth() - 1);
 
                         }
-                        gameObjectsToHit[i].delete();
+                        if (collisionDetector.check(gameObjectsToHit[i]) && !gameObjectsToHit[i].isDeleted()) {
+
+                            if (gameObjectsToHit[i] instanceof Character) {
+                                soundEffects.playCoinSound();
+                                Character character = (Character) gameObjectsToHit[i];
+                                score += character.getCharacters().getPoints();
+                                textScore.setText("Score: " + score.toString());
+                                textScore.draw();
+
+                            } else if (gameObjectsToHit[i] instanceof Obstacle) {
+                                soundEffects.playCrashSound();
+                                bullLife[bull.getHealth() - 1].delete();
+                                bull.setHealth(bull.getHealth() - 1);
+
+                            }
+                            gameObjectsToHit[i].setDeleted();
+                            gameObjectsToHit[i].delete();
+                        }
+
+
                         if (i > (2 * gameObjectsToHit.length) / 4 && i <= (2 * gameObjectsToHit.length) / 4) {
                             delay = 80;
                         }
                         if (i > gameObjectsToHit.length / 4) {
                             delay = 60;
                         }
-
                         if (i > gameObjectsToHit.length / 3) {
                             delay = 50;
                         }
-                    }
-
-                    if (iterator <= i) {
-                        iterator += 0.10;
-                        break;
-                    }
 
 
-                    if (bull.getHealth() <= 0) {
-                        bull.setDeath();
-                    }
+                        if (iterator <= i) {
+                            iterator += 0.10;
+                            break;
+                        }
+
+                        if (bull.getHealth() <= 0) {
+                            bull.setDeath();
+                        }
+
+
+                    /*if(bull.isAlive() && gameObjectsToHit[gameObjectsToHit.length - 1].isDeleted()){
+                        createCages();
+                        while(bull.getPosition().getCol() < 17) {
+                            cages[0].moveCages();
+                            cages[1].moveCages();
+                            cages[2].moveCages();
+                            cages[3].moveCages();
+                        }
+                    }*/
 
                 }
 
@@ -171,12 +183,13 @@ public class Game implements KeyboardHandler {
 
             }
 
-            //if(bull.isAlive()){
-              //  createCages();
-            //}
+        TinySound.shutdown();
 
 
+    }
 
+    public boolean bullLiveStatus(){
+        return bull.isAlive();
     }
 
     public void createCages(){
@@ -205,7 +218,7 @@ public class Game implements KeyboardHandler {
 
     public void createObjects(){
 
-        factory = new Factory();
+        Factory factory = new Factory();
         gameObjectsClouds = new GameObjects[100];
         gameObjectsToHit = new GameObjects[50];
         gameObjectsHouses = new GameObjects[50];

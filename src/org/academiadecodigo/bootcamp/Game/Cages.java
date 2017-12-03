@@ -21,4 +21,13 @@ public class Cages {
         border.draw();
     }
 
+    public void moveCages(){
+        if(pos.getCol()!= 1) {
+            pos.moveLeft();
+            cage.translate(0, -Field.CELLPIXELS);
+            border.translate(0, -Field.CELLPIXELS);
+        }
+        return;
+    }
+
 }

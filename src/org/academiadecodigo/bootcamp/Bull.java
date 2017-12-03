@@ -6,7 +6,7 @@ import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 
-public class Bull /*implements KeyboardHandler*/ {
+public class Bull {
 
     private Position position;
     private Integer health = 3;
@@ -18,10 +18,10 @@ public class Bull /*implements KeyboardHandler*/ {
 
 
     public Bull() throws InterruptedException {
-        position = new Position(0, 6);
-        invisible = new Rectangle(0, (position.getRow())*Field.CELLPIXELS, Field.CELLPIXELS, Field.CELLPIXELS);
-        invisible.setColor(Color.DARK_GRAY);
-        invisible.fill();
+        position = new Position(1, 6);
+        //invisible = new Rectangle(0, (position.getRow())*Field.CELLPIXELS, Field.CELLPIXELS, Field.CELLPIXELS);
+        //invisible.setColor(Color.DARK_GRAY);
+        //invisible.fill();
         bull[0] = new Picture(position.getCol(), position.getRow() * Field.CELLPIXELS, "bullMove1.png");
         bull[1] = new Picture(position.getCol(), position.getRow() * Field.CELLPIXELS, "bullMove2.png");
         bull[2] = new Picture(position.getCol(), position.getRow() * Field.CELLPIXELS, "bullMove3.png");

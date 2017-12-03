@@ -88,4 +88,9 @@ public class GameObjects{
     public boolean isDeleted() {
         return deleted;
     }
+
+    public void setDeleted() {
+        this.deleted = true;
+    }
+
 }

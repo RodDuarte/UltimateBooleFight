@@ -2,6 +2,7 @@ package org.academiadecodigo.bootcamp.Menu;
 
 import org.academiadecodigo.bootcamp.Field;
 import org.academiadecodigo.bootcamp.Game.Game;
+import org.academiadecodigo.bootcamp.Game.SoundEffects;
 import org.academiadecodigo.bootcamp.Position;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
@@ -21,12 +22,11 @@ public class Menu implements KeyboardHandler {
     private Picture[] select = new Picture[4];
     private Field menu;
     private Game game;
-    private Picture pageSelected1;
-    private Picture pageSelected2;
+    private Picture pageSelected;
     private Picture background;
+    SoundEffects soundEffects = new SoundEffects();
 
     public Menu() throws InterruptedException {
-        game = new Game();
         startGame = false;
         instructions = false;
         credits = false;
@@ -73,6 +73,7 @@ public class Menu implements KeyboardHandler {
     }
 
     public void startGame() throws InterruptedException {
+        game = new Game();
         game.init();
     }
 
@@ -103,11 +104,13 @@ public class Menu implements KeyboardHandler {
             select[0].draw();
             select[1].delete();
 
+
         }
         if(selection.getPosition().getRow()==2){
             select[0].delete();
             select[1].draw();
             select[2].delete();
+
 
 
         }
@@ -116,10 +119,12 @@ public class Menu implements KeyboardHandler {
             select[2].draw();
             select[3].delete();
 
+
         }
         if(selection.getPosition().getRow()==4){
             select[2].delete();
             select[3].draw();
+
 
         }
 
@@ -131,6 +136,10 @@ public class Menu implements KeyboardHandler {
         credits = false;
         exit = false;
         back = false;
+    }
+
+    public Game getGame() {
+        return game;
     }
 
     public void keyBoardEvent() throws InterruptedException{
@@ -166,7 +175,7 @@ public class Menu implements KeyboardHandler {
     public void keyPressed(KeyboardEvent keyboardEvent){
         switch(keyboardEvent.getKey()){
             case KeyboardEvent.KEY_UP:
-                    if (selection.getPosition().getRow() > 1 && selection.getPosition().getRow() <= 4 &&!isStartGame()) {
+                    if (selection.getPosition().getRow() > 1 && selection.getPosition().getRow() <= 4 &&!isStartGame() && !instructions && !credits) {
                         selection.getPosition().setRow(selection.getRow() - 1);
                         moveSelection();
 
@@ -175,7 +184,7 @@ public class Menu implements KeyboardHandler {
                 break;
 
             case KeyboardEvent.KEY_DOWN:
-                    if (selection.getPosition().getRow() < 4 && selection.getPosition().getRow() >= 1 && !isStartGame()) {
+                    if (selection.getPosition().getRow() < 4 && selection.getPosition().getRow() >= 1 &&!isStartGame() && !instructions && !credits) {
                         selection.getPosition().setRow(selection.getRow() + 1);
                         moveSelection();
 
@@ -188,16 +197,18 @@ public class Menu implements KeyboardHandler {
                 if(selection.getPosition().getRow() == 1){
                     startGame = true;
 
+
                 }
                 if(selection.getPosition().getRow() == 2){
                     instructions = true;
-                    pageSelected1 = new Picture(0,0, "creditsPage.png");
-                    pageSelected1.draw();
+                    pageSelected = new Picture(0,0, "creditsPage.png");
+                    pageSelected.draw();
                 }
                 if(selection.getPosition().getRow() == 3){
                     credits = true;
-                    pageSelected2 = new Picture(0,0, "instructionsPage.png");
-                    pageSelected2.draw();
+                    pageSelected = new Picture(0,0, "instructionsPage.png");
+                    pageSelected.grow(0,100);
+                    pageSelected.draw();
 
                 }
                 if(selection.getPosition().getRow() == 4){
@@ -206,19 +217,14 @@ public class Menu implements KeyboardHandler {
                 break;
 
             case KeyboardEvent.KEY_LEFT:
-                if(instructions){
+                if(instructions || credits){
                     back = true;
-                    pageSelected1.delete();
+                    pageSelected.delete();
                     instructions = false;
-                }
-                if(credits){
-                    back = true;
-                    pageSelected2.delete();
                     credits = false;
                 }
                 break;
         }
-
 
 
     }
