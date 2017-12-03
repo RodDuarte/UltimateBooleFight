@@ -4,30 +4,34 @@ import org.academiadecodigo.bootcamp.Field;
 import org.academiadecodigo.bootcamp.Position;
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Cages {
 
     private Position pos;
-    private Rectangle border;
-    private Rectangle cage;
+    private Picture cages;
 
-    public Cages(int col, int row){
-        pos = new Position(col,row);
-        cage = new Rectangle((col)* Field.CELLPIXELS, (row+4)*Field.CELLPIXELS,2*Field.CELLPIXELS,Field.CELLPIXELS);
-        border = new Rectangle((col)*Field.CELLPIXELS, (row+4)*Field.CELLPIXELS,2*Field.CELLPIXELS,Field.CELLPIXELS);
-        cage.setColor(Color.RED);
-        cage.fill();
-        border.setColor(Color.BLACK);
-        border.draw();
+    public Cages(){
+        pos = new Position(16,3);
+        cages = new Picture(16*Field.CELLPIXELS,3*Field.CELLPIXELS,"cages.png");
+        cages.draw();
+    }
+
+    public void deleteCages(){
+
+        cages.delete();
     }
 
     public void moveCages(){
         if(pos.getCol()!= 1) {
             pos.moveLeft();
-            cage.translate(0, -Field.CELLPIXELS);
-            border.translate(0, -Field.CELLPIXELS);
+            cages.translate(-Field.CELLPIXELS, 0);
         }
-        return;
+
+    }
+
+    public Position getPos(){
+        return pos;
     }
 
 }

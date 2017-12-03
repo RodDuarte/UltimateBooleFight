@@ -30,7 +30,6 @@ public class Main {
                 System.out.println();
                 if (menu.isBack()) {
                     menu.backToMenu();
-                   // menu.init();
                 }
                 if (menu.isExit()) {
                     System.exit(0);

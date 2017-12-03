@@ -20,5 +20,13 @@ public class CollisionDetector {
         return false;
     }
 
+    public boolean check(Cages cages) {
+
+        if ((bull.getPosition().getCol()) == (cages.getPos().getCol())) {
+            return true;
+        }
+        return false;
+    }
+
 }
 

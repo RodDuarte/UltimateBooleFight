@@ -20,7 +20,7 @@ public class Game implements KeyboardHandler {
 
     private Field road;
     private Field sky;
-    private Cages[] cages;
+    private Cages cages;
     private int delay;
     private Integer score = 0;
     private GameObjects[] gameObjectsToHit;
@@ -33,6 +33,7 @@ public class Game implements KeyboardHandler {
     private Picture bull2;
     private int bullPicCounter;
     private SoundEffects soundEffects;
+    private boolean gamePlayed = false;
 
     public Game() throws InterruptedException {
         sky = new Field(18,5,false);
@@ -58,7 +59,14 @@ public class Game implements KeyboardHandler {
             bullLife[1].draw();
             bullLife[2].draw();
             createObjects();
-            start();
+            if(!gamePlayed) {
+                start();
+                gamePlayed = true;
+            }
+            if(gamePlayed){
+                goingToCages();
+                gamePlayed = false;
+            }
     }
 
     public void start() throws InterruptedException{
@@ -159,17 +167,8 @@ public class Game implements KeyboardHandler {
                         }
 
 
-                    /*if(bull.isAlive() && gameObjectsToHit[gameObjectsToHit.length - 1].isDeleted()){
-                        createCages();
-                        while(bull.getPosition().getCol() < 17) {
-                            cages[0].moveCages();
-                            cages[1].moveCages();
-                            cages[2].moveCages();
-                            cages[3].moveCages();
-                        }
-                    }*/
-
                 }
+
 
                 if (gameObjectsToHit[gameObjectsToHit.length - 1].isDeleted()) {
                     deletedCounter++;
@@ -179,7 +178,6 @@ public class Game implements KeyboardHandler {
                 Thread.sleep(delay);
                 bull2.delete();
 
-
             }
 
         TinySound.shutdown();
@@ -187,17 +185,43 @@ public class Game implements KeyboardHandler {
 
     }
 
+    public void goingToCages() throws InterruptedException{
+
+        road.init();
+        sky.initBackground();
+
+        bull = new Bull();
+
+        keyBoardEvent();
+        CollisionDetector collisionDetector = new CollisionDetector(bull);
+        createCages();
+
+            while(cages.getPos().getCol()>1) {
+                bull2 = getPic(bull.getBull());
+                bull2.draw();
+
+                cages.moveCages();
+
+                if (collisionDetector.check(cages)){
+                    cages.deleteCages();
+                    bull2.delete();
+                    return;
+                }
+
+                Thread.sleep(100);
+                bull2.delete();
+
+            }
+
+    }
+
+
     public boolean bullLiveStatus(){
         return bull.isAlive();
     }
 
     public void createCages(){
-
-        cages = new Cages[4];
-        for(int i = 0; i < cages.length; i++){
-            cages[i] = new Cages(18,i+1);
-        }
-
+        cages = new Cages();
     }
 
 

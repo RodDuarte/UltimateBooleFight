@@ -14,12 +14,11 @@ public enum Characters {
     }
 
     public static int random (){
-
-        return (int) Math.floor(Math.random() * 3);
-
+        return (int) Math.floor(Math.random() * 4);
     }
 
     public int getPoints() {
         return points;
     }
+
 }

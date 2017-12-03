@@ -11,7 +11,6 @@ public class Bull {
     private Position position;
     private Integer health = 3;
     private boolean isAlive = true;
-    private Rectangle invisible;
     private Picture[] bull = new Picture[5];
     private int bullPicCounter = 0;
 
@@ -19,9 +18,6 @@ public class Bull {
 
     public Bull() throws InterruptedException {
         position = new Position(1, 6);
-        //invisible = new Rectangle(0, (position.getRow())*Field.CELLPIXELS, Field.CELLPIXELS, Field.CELLPIXELS);
-        //invisible.setColor(Color.DARK_GRAY);
-        //invisible.fill();
         bull[0] = new Picture(position.getCol(), position.getRow() * Field.CELLPIXELS, "bullMove1.png");
         bull[1] = new Picture(position.getCol(), position.getRow() * Field.CELLPIXELS, "bullMove2.png");
         bull[2] = new Picture(position.getCol(), position.getRow() * Field.CELLPIXELS, "bullMove3.png");
