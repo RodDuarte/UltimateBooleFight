@@ -25,6 +25,8 @@ public class Menu implements KeyboardHandler {
     private Picture pageSelected;
     private Picture background;
     SoundEffects soundEffects = new SoundEffects();
+    GameOver gameOver;
+    Score score;
 
     public Menu() throws InterruptedException {
         startGame = false;
@@ -35,7 +37,8 @@ public class Menu implements KeyboardHandler {
         background = new Picture(0,0,"menu.png");
         selection = new Position(1,1);
         menu = new Field(3,6);
-
+        gameOver = new GameOver(this);
+        score = new Score(this);
 
     }
 
@@ -69,10 +72,11 @@ public class Menu implements KeyboardHandler {
         options[2].delete();
         options[3].delete();
         select[0].delete();
-        background.delete();
+        background.draw();
     }
 
     public void startGame() throws InterruptedException {
+
         game = new Game();
         game.init();
     }
@@ -104,14 +108,11 @@ public class Menu implements KeyboardHandler {
             select[0].draw();
             select[1].delete();
 
-
         }
         if(selection.getPosition().getRow()==2){
             select[0].delete();
             select[1].draw();
             select[2].delete();
-
-
 
         }
         if(selection.getPosition().getRow()==3){
@@ -119,12 +120,11 @@ public class Menu implements KeyboardHandler {
             select[2].draw();
             select[3].delete();
 
-
         }
+
         if(selection.getPosition().getRow()==4){
             select[2].delete();
             select[3].draw();
-
 
         }
 
@@ -136,10 +136,19 @@ public class Menu implements KeyboardHandler {
         credits = false;
         exit = false;
         back = false;
+
     }
 
     public Game getGame() {
         return game;
+    }
+
+    public GameOver getGameOver() {
+        return gameOver;
+    }
+
+    public Score getScore() {
+        return score;
     }
 
     public void keyBoardEvent() throws InterruptedException{
@@ -173,9 +182,10 @@ public class Menu implements KeyboardHandler {
 
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent){
+
         switch(keyboardEvent.getKey()){
             case KeyboardEvent.KEY_UP:
-                    if (selection.getPosition().getRow() > 1 && selection.getPosition().getRow() <= 4 &&!isStartGame() && !instructions && !credits) {
+                    if (selection.getPosition().getRow() > 1 && selection.getPosition().getRow() <= 4 &&!isStartGame() && !instructions && !credits && !score.isScore() && !gameOver.isGameOver()) {
                         selection.getPosition().setRow(selection.getRow() - 1);
                         moveSelection();
 
@@ -184,7 +194,7 @@ public class Menu implements KeyboardHandler {
                 break;
 
             case KeyboardEvent.KEY_DOWN:
-                    if (selection.getPosition().getRow() < 4 && selection.getPosition().getRow() >= 1 &&!isStartGame() && !instructions && !credits) {
+                    if (selection.getPosition().getRow() < 4 && selection.getPosition().getRow() >= 1 &&!isStartGame() && !instructions && !credits && !score.isScore() && !gameOver.isGameOver()) {
                         selection.getPosition().setRow(selection.getRow() + 1);
                         moveSelection();
 
@@ -193,26 +203,26 @@ public class Menu implements KeyboardHandler {
                 break;
 
             case KeyboardEvent.KEY_SPACE:
+                if(!instructions && !credits) {
+                    if (selection.getPosition().getRow() == 1) {
+                        background.draw();
+                        startGame = true;
 
-                if(selection.getPosition().getRow() == 1){
-                    startGame = true;
+                    }
+                    if (selection.getPosition().getRow() == 2) {
+                        instructions = true;
+                        pageSelected = new Picture(0, 0, "creditsPage.png");
+                        pageSelected.draw();
+                    }
+                    if (selection.getPosition().getRow() == 3) {
+                        credits = true;
+                        pageSelected = new Picture(0, 0, "instructionsPage.png");
+                        pageSelected.draw();
 
-
-                }
-                if(selection.getPosition().getRow() == 2){
-                    instructions = true;
-                    pageSelected = new Picture(0,0, "creditsPage.png");
-                    pageSelected.draw();
-                }
-                if(selection.getPosition().getRow() == 3){
-                    credits = true;
-                    pageSelected = new Picture(0,0, "instructionsPage.png");
-                    pageSelected.grow(0,100);
-                    pageSelected.draw();
-
-                }
-                if(selection.getPosition().getRow() == 4){
-                    exit = true;
+                    }
+                    if (selection.getPosition().getRow() == 4) {
+                        exit = true;
+                    }
                 }
                 break;
 

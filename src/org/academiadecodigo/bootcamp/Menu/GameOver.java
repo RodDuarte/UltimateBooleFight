@@ -13,20 +13,27 @@ public class GameOver implements KeyboardHandler {
     private boolean backToMenu;
     private Picture background;
     private Menu menu;
+    private boolean gameOver;
 
 
     public GameOver(Menu menu){
         this.menu = menu;
         background = new Picture(0,0,"GameOVer.png");
         backToMenu = false;
+        gameOver = false;
     }
 
     public void init(){
+        gameOver = true;
         background.draw();
     }
 
     public boolean isBackToMenu() {
         return backToMenu;
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
     }
 
     public void keyBoardEvent() throws InterruptedException{
@@ -45,6 +52,7 @@ public class GameOver implements KeyboardHandler {
         switch (keyboardEvent.getKey()) {
             case KeyboardEvent.KEY_SPACE:
                 backToMenu = true;
+                gameOver = false;
                 background.delete();
                 break;
         }

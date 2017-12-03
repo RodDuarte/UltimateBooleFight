@@ -140,15 +140,14 @@ public class Game implements KeyboardHandler {
 
 
                         if (i > (2 * gameObjectsToHit.length) / 4 && i <= (2 * gameObjectsToHit.length) / 4) {
-                            delay = 80;
+                            delay = 90;
                         }
                         if (i > gameObjectsToHit.length / 4) {
-                            delay = 60;
+                            delay = 70;
                         }
                         if (i > gameObjectsToHit.length / 3) {
-                            delay = 50;
+                            delay = 60;
                         }
-
 
                         if (iterator <= i) {
                             iterator += 0.10;
@@ -215,6 +214,9 @@ public class Game implements KeyboardHandler {
         return picArray[bullPicCounter];
     }
 
+    public Integer getScore() {
+        return score;
+    }
 
     public void createObjects(){
 

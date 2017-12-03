@@ -33,13 +33,13 @@ public class GameObjects{
          System.out.println(random);
          switch (random){
              case 0:
-                 object = new Picture(16*Field.CELLPIXELS+18, Field.CELLPIXELS+10, "house1.png");
+                 object = new Picture(16*Field.CELLPIXELS+18, Field.CELLPIXELS, "house1.png");
                  break;
              case 1:
-                 object = new Picture(16*Field.CELLPIXELS+18, Field.CELLPIXELS+10, "house2.png");
+                 object = new Picture(16*Field.CELLPIXELS+18, Field.CELLPIXELS, "house2.png");
                  break;
              case 2:
-                 object = new Picture(16*Field.CELLPIXELS+18, Field.CELLPIXELS+10, "house3.png");
+                 object = new Picture(16*Field.CELLPIXELS+18, Field.CELLPIXELS, "house3.png");
                  break;
 
              default:
