@@ -2,6 +2,7 @@ package org.academiadecodigo.bootcamp.Game;
 
 import org.academiadecodigo.bootcamp.Field;
 import org.academiadecodigo.bootcamp.Menu.Menu;
+import org.academiadecodigo.bootcamp.kuusisto.tinysound.TinySound;
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
@@ -26,16 +27,11 @@ public class Main {
                 menu.init();
             }
             if (menu.isExit()) {
-                Rectangle end = new Rectangle(0, 0, 1800, 1165);
-                end.setColor(Color.BLACK);
-                end.fill();
-            }
+                System.exit(0);
+        }
         }
 
         menu.gameScreen();
-        //Rectangle walk = new Rectangle(0,7* Field.CELLPIXELS,18*Field.CELLPIXELS, 85);
-        //walk.setColor(Color.BLACK);
-        //walk.fill();
         menu.startGame();
 
 
@@ -43,5 +39,6 @@ public class Main {
 
 
     }
+    
 
 }

@@ -6,7 +6,6 @@ import org.academiadecodigo.bootcamp.Hitables.Characters.Character;
 import org.academiadecodigo.bootcamp.Hitables.Factory;
 import org.academiadecodigo.bootcamp.Hitables.Obstacles.Obstacle;
 import org.academiadecodigo.bootcamp.Menu.GameOver;
-import org.academiadecodigo.bootcamp.Menu.Menu;
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Text;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
@@ -79,7 +78,6 @@ public class Game implements KeyboardHandler {
                 bull2 = getPic(bull.getBull());
                 bull2.draw();
 
-                //Thread.sleep(delay);
 
 
                 for (int i = 0; i < gameObjectsToHit.length; i++) {
@@ -176,6 +174,7 @@ public class Game implements KeyboardHandler {
             //if(bull.isAlive()){
               //  createCages();
             //}
+
 
 
     }
