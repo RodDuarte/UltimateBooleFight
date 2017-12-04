@@ -28,6 +28,12 @@ public class Position {
         }
     }
 
+    public void moveFoward(){
+
+            this.col++;
+
+    }
+
     //public void moveToCages(){}
 
     public int getCol() {

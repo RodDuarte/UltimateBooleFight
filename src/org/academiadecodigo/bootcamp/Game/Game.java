@@ -196,13 +196,14 @@ public class Game implements KeyboardHandler {
             CollisionDetector collisionDetector = new CollisionDetector(bull);
             createCages();
 
-            while (cages.getPos().getCol() > 1) {
+            while (bull.getPosition().getCol() != cages.getPos().getCol()) {
+
                 bull2 = getPic(bull.getBull());
                 bull2.draw();
 
-                cages.moveCages();
-
+                bull.bullMoveFoward();
                 if (collisionDetector.check(cages)) {
+
                     cages.deleteCages();
                     bull2.delete();
                     return;
@@ -290,6 +291,13 @@ public class Game implements KeyboardHandler {
 
     }
 
+
+    public void moveCharacters(int i){
+
+        gameObjectsToHit[i].moveForward();
+        gameObjectsToHit[i].draw();
+
+    }
 
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {

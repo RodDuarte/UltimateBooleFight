@@ -25,8 +25,22 @@ public class Bull {
         bull[4] = new Picture(position.getCol(), position.getRow() * Field.CELLPIXELS, "bullMove5.png");
     }
 
+    public void bullMoveFoward(){
 
-    public double getCol(){
+        if(position.getCol() != 17) {
+                position.moveFoward();
+            for (int i = 0; i < bull.length; i++) {
+
+                bull[i].translate(Field.CELLPIXELS, 0);
+
+            }
+
+        }
+
+    }
+
+
+    public int getCol(){
         return position.getCol();
     }
 
